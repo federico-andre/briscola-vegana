@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/partita"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Dettaglio Partita
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+    <section *ngIf="partita">
+        <h3 style="text-align: center;">Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</h3>
+
+        <ion-list>
+            <ion-item *ngFor="let giocatore of partita.giocatori | orderBy:'desc':'points'">
+                <ion-avatar slot="start">
+                    <img src="{{giocatore.imageUrl}}" />
+                </ion-avatar>
+                <ion-label>
+                    <h2>{{giocatore.nickname}}</h2>
+                    <p>{{giocatore.description}}</p>
+                </ion-label>
+                <ion-label class="points">
+                    <ion-button slot="start" color="danger" (click)="points('rm', giocatore)">
+                        <ion-icon name="remove"></ion-icon>
+                    </ion-button>
+                    <ion-badge  [color]="getPointsColor(giocatore.points)">{{giocatore.points}}</ion-badge>
+                    <ion-button slot="end" color="success" (click)="points('add', giocatore)">
+                        <ion-icon name="add"></ion-icon>
+                    </ion-button>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </section>
+</ion-content>

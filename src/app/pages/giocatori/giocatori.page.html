@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button type="button" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Giocatori
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-slides pager="true" [options]="slideOpts" mode="ios">
+    <ion-slide *ngFor="let giocatore of giocatori">
+      <ion-card>
+        <img src="{{giocatore.imageUrl}}" />
+        <ion-card-header>
+          <ion-card-subtitle>{{giocatore.nickname}}</ion-card-subtitle>
+          <ion-card-title>{{giocatore.nome}} {{giocatore.cognome}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{giocatore.description}}
+        </ion-card-content>
+        <ion-footer class="ion-no-border">
+          <ion-toolbar>
+            <ion-title>Punti Totali: {{giocatore.totalPoints}}</ion-title>
+          </ion-toolbar>
+        </ion-footer>
+      </ion-card>
+    </ion-slide>
+    <!-- <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide> -->
+  </ion-slides>
+
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary" (click)="nuovoGiocatore()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

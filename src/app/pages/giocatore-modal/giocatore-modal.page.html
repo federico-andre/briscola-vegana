@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nuovo Giocatore</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form (ngSubmit)="creaGiocatore()" [formGroup]="nuovoGiocatoreForm">
+    <div class="input-group">
+      <ion-item>
+        <ion-input type="text" placeholder="Nome" formControlName="nome"></ion-input>
+      </ion-item>
+      <div *ngIf="(nome.dirty || nome.touched) && nome.errors" class="errors">
+        <span *ngIf="nome.errors?.required">Il nome è obbligatorio</span>
+      </div>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Cognome" formControlName="cognome"></ion-input>
+      </ion-item>
+      <div *ngIf="(cognome.dirty || cognome.touched) && cognome.errors" class="errors">
+        <span *ngIf="cognome.errors?.required">Il cognome è obbligatorio</span>
+      </div>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Nickname" formControlName="nickname"></ion-input>
+      </ion-item>
+      <div *ngIf="(nickname.dirty || nickname.touched) && nickname.errors" class="errors">
+        <span *ngIf="nickname.errors?.required">Il nickname è obbligatorio</span>
+      </div>
+
+      <ion-item>
+        <ion-textarea placeholder="Descrizione" formControlName="descrizione"></ion-textarea>
+      </ion-item>
+      <div *ngIf="(nickname.dirty || nickname.touched) && nickname.errors" class="errors">
+        <span *ngIf="nickname.errors?.required">La descrizione è obbligatorio</span>
+      </div>
+
+      <ion-item>
+        <ion-button expand="block" (click)="selectImage()" [disabled]="isLoading">Carica Immagine</ion-button>
+      </ion-item>
+
+    </div>
+ 
+    <ion-button type="submit" expand="block" [disabled]="!nuovoGiocatoreForm.valid">Crea Giocatore</ion-button>
+ 
+  </form>
+
+</ion-content>

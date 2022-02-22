@@ -1,0 +1,89 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button type="button" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Partita
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- <section style="max-width: fit-content;">
+    <h3>Partita in corso</h3>
+    <span *ngIf="!partita">Non ci sono partite in corso</span>
+    <ion-card *ngIf="partita">
+      <ion-item>
+        <ion-label>Partita del: {{partita.start_date}}</ion-label>
+      </ion-item>
+    
+      <ion-card-content>
+        <table>
+          <thead>
+            <th>Giocatore</th>
+            <th>Punti</th>
+          </thead>
+          <tbody *ngFor="let giocatore of partita.giocatori">
+            <td>{{giocatore.id}}</td>
+            <td style="text-align: right;">
+              <ion-badge color="secondary">{{giocatore.points}}</ion-badge>
+            </td>
+          </tbody>
+        </table>
+      </ion-card-content>
+
+      <ion-footer class="ion-no-border">
+        <ion-toolbar>
+          <ion-icon name="close-circle" slot="start"></ion-icon>
+          <ion-button fill="outline" slot="end">Dettaglio</ion-button>
+        </ion-toolbar>
+      </ion-footer>
+
+    </ion-card>
+  </section> -->
+  <h3>Partita in corso</h3>
+  <span *ngIf="!partita">Non ci sono partite in corso</span>
+  <ion-list *ngIf="partita">
+    <span>Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</span>
+    <ion-item *ngFor="let giocatore of partita.giocatori | orderBy:'desc':'points'">
+      <ion-avatar slot="start">
+        <img src="{{giocatore.imageUrl}}" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{giocatore.nickname}}</h2>
+        <p>{{giocatore.description}}</p>
+      </ion-label>
+      <ion-badge slot="end" [color]="getPointsColor(giocatore.points)">{{giocatore.points}}</ion-badge>
+    </ion-item>
+    <ion-footer class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button color="danger" style="margin-left: 0.7rem;" (click)="chiudiPartita()">
+            <ion-icon slot="start" name="close-circle"></ion-icon>
+            <!-- Chiudi -->
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button color="primary" style="margin-right: 0.7rem;" [routerLink]="['partita', partita.id]">
+            <!-- Dettaglio -->
+            <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-title></ion-title>
+      </ion-toolbar>
+    </ion-footer>
+  </ion-list>
+
+
+
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary" (click)="creaNuovaPartita()" [disabled]="createNewGame">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
