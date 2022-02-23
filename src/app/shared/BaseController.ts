@@ -13,4 +13,11 @@ export class BaseController {
         this.authService.logout();
     }
 
+    getPointsColor(points: number) {
+        if (points == 0) return "secondary";
+        if (points < 0) return "danger";
+
+        return "success";
+    }
+
 }

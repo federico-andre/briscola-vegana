@@ -7,6 +7,7 @@ import { StoricoPage } from './storico.page';
 // import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { StoricoPageRoutingModule } from './storico-routing.module';
+import { OrderByPipe } from 'src/app/pipes/order-by.pipe';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { StoricoPageRoutingModule } from './storico-routing.module';
     RouterModule.forChild([{ path: '', component: StoricoPage }]),
     StoricoPageRoutingModule,
   ],
-  declarations: [StoricoPage]
+  declarations: [StoricoPage, OrderByPipe]
 })
 export class StoricoPageModule {}

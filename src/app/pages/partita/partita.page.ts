@@ -40,7 +40,7 @@ export class PartitaPage extends BaseController implements OnInit {
 
       if(res.length == 1) {
         this.partita = res[0];
-        // console.log(res[0].id);
+        // console.log(res[0]);
         this.createNewGame = true;
       }
 
@@ -61,13 +61,6 @@ export class PartitaPage extends BaseController implements OnInit {
     });
 
     await modal.present();
-  }
-
-  getPointsColor(points: number) {
-    if(points == 0) return "secondary";
-    if(points < 0) return "danger";
-
-    return "success";
   }
 
 

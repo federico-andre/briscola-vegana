@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { GiocatoriService } from 'src/app/services/giocatori.service';
 import { Giocatore } from 'src/app/shared/Giocatore';
 import { ActionSheetController } from '@ionic/angular';
@@ -34,7 +34,9 @@ export class GiocatoreModalPage implements OnInit {
               private giocatoreService: GiocatoriService, 
               private modalCtrl: ModalController, 
               public actionSheetController: ActionSheetController,
-              private storage: AngularFireStorage) { }
+              private storage: AngularFireStorage,
+              private toastController: ToastController,
+              private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.nuovoGiocatoreForm = this.fb.group({
@@ -66,13 +68,21 @@ export class GiocatoreModalPage implements OnInit {
     };
     this.isLoading = true;
     // console.log(this.croppedImagePath)
+    const toast = await this.toastController.create({
+      message: 'Immagine caricata correttamente',
+      duration: 2000
+    });
+    toast.present();
   };
 
-  creaGiocatore() {
+  async creaGiocatore() {
     if(!this.nuovoGiocatoreForm.valid) {
       console.log("form non valido");
       return
     }
+
+    const loading = await this.loadingController.create();
+    await loading.present();
 
     const filePath = `giocatori/${this.nickname.value}.${this.image.formato}`;
     const fileRef = this.storage.ref(filePath);
@@ -82,7 +92,7 @@ export class GiocatoreModalPage implements OnInit {
       finalize(() => {
         const downloadUrl = fileRef.getDownloadURL();
         downloadUrl.subscribe(value => {
-          console.log("download url:", value);
+          // console.log("download url:", value);
           
           const newPlayer: Giocatore = {
             nome: this.nome.value,
@@ -94,6 +104,7 @@ export class GiocatoreModalPage implements OnInit {
           }
        
           this.giocatoreService.createGiocatore(newPlayer);
+          loading.dismiss();
           this.modalCtrl.dismiss();
         })
       } )

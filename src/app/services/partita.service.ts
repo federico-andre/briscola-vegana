@@ -21,13 +21,18 @@ export class PartitaService {
     partitaCollection.add(partita);
   }
 
-  updatePartita(partita: Partita) {
+  async updatePartita(partita: Partita) {
     const partitaCollection = this.afs.collection<Partita>('partita');
     partitaCollection.doc(partita.idField).set(partita);
   }
 
   getPartitaById(id: string) {
     const partitaCollection = this.afs.collection<Partita>('partita', ref => ref.where('id', '==', id));
+    return partitaCollection.valueChanges({ idField: 'idField' });
+  }
+
+  getStoricoPartite() {
+    const partitaCollection = this.afs.collection<Partita>('partita', ref => ref.where('status', '==', 0));
     return partitaCollection.valueChanges({ idField: 'idField' });
   }
 

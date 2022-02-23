@@ -33,7 +33,7 @@ export class PartitaModalPage implements OnInit {
     }
 
     creaPartita() {
-        console.log(this.nuovaPartitaForm.value);
+        // console.log(this.nuovaPartitaForm.value);
 
         const players: Player[] = this.nuovaPartitaForm.get('giocatori').value.map(gicoatore => {
             return {...gicoatore, points: 0}
@@ -43,8 +43,11 @@ export class PartitaModalPage implements OnInit {
             giocatori: players,
             start_date: new Date(),
             status: 1,
-            id: uuidv4()
+            id: uuidv4(),
+            turni: [{numero: 0, giocatori: players}]
         };
+
+        // console.log(partita);
 
         this.partitaService.createPartita(partita);
         this.modalCtrl.dismiss();

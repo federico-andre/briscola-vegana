@@ -26,7 +26,7 @@ export class GiocatoriPage extends BaseController implements OnInit {
 
   ngOnInit(): void {
     this.giocatoriService.getGiocatori()
-    .subscribe(res => {console.log(res); this.giocatori = res});
+    .subscribe(res => this.giocatori = res);
   }
 
   async nuovoGiocatore() {

@@ -13,7 +13,45 @@
 
 <ion-content [fullscreen]="true">
 
-  <div class="ciao">
-    <h3>Porco dio</h3>
-  </div>
+  <h3 style="text-align: center;">Storico Partite</h3>
+
+  <ion-accordion-group *ngIf="storicoPartite">
+    <ion-accordion *ngFor="let partita of storicoPartite" value="{{partita.idField}}">
+
+      <ion-item slot="header">
+        <ion-label>Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</ion-label>
+      </ion-item>
+  
+      <ion-list slot="content" >
+        <ion-item *ngFor="let giocatore of partita.giocatori | orderBy:'desc':'points'">
+          <ion-avatar slot="start">
+            <img src="{{giocatore.imageUrl}}" />
+          </ion-avatar>
+          <ion-label>
+            <h2>{{giocatore.nickname}}</h2>
+            <p>{{giocatore.description}}</p>
+          </ion-label>
+          <ion-badge slot="end" [color]="getPointsColor(giocatore.points)">{{giocatore.points}}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+
+    </ion-accordion-group>
+
+  <!-- <section *ngIf="storicoPartite">
+    <ion-list *ngFor="let partita of storicoPartite">
+      <span>Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</span>
+      <ion-item *ngFor="let giocatore of partita.giocatori | orderBy:'desc':'points'">
+        <ion-avatar slot="start">
+          <img src="{{giocatore.imageUrl}}" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{giocatore.nickname}}</h2>
+          <p>{{giocatore.description}}</p>
+        </ion-label>
+        <ion-badge slot="end" [color]="getPointsColor(giocatore.points)">{{giocatore.points}}</ion-badge>
+      </ion-item>
+    </ion-list>
+  </section> -->
+
 </ion-content>
