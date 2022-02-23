@@ -13,7 +13,7 @@ export class PartitaService {
     // status = 0 --> Partita chiusa
     // status = 1 --> Partita in corso
     const partitaCollection = this.afs.collection<Partita>('partita', ref => ref.where('status', '==', 1));
-    return partitaCollection.valueChanges({idField: 'id'});
+    return partitaCollection.valueChanges({ idField: 'idField' });
   }
 
   createPartita(partita: Partita) {
@@ -23,12 +23,12 @@ export class PartitaService {
 
   updatePartita(partita: Partita) {
     const partitaCollection = this.afs.collection<Partita>('partita');
-    partitaCollection.doc(partita.id).set(partita);
+    partitaCollection.doc(partita.idField).set(partita);
   }
 
   getPartitaById(id: string) {
     const partitaCollection = this.afs.collection<Partita>('partita', ref => ref.where('id', '==', id));
-    return partitaCollection.valueChanges({idField: 'id'});
+    return partitaCollection.valueChanges({ idField: 'idField' });
   }
 
 }

@@ -40,6 +40,7 @@ export class PartitaPage extends BaseController implements OnInit {
 
       if(res.length == 1) {
         this.partita = res[0];
+        // console.log(res[0].id);
         this.createNewGame = true;
       }
 

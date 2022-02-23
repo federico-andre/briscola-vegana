@@ -6,6 +6,7 @@ export class Player extends Giocatore {
 
 export interface Partita {
     id?: string,
+    idField?: string,
     start_date: Date,
     end_date?: Date,
     status: number

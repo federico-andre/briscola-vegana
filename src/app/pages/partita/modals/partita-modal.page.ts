@@ -5,6 +5,7 @@ import { GiocatoriService } from 'src/app/services/giocatori.service';
 import { PartitaService } from 'src/app/services/partita.service';
 import { Giocatore } from 'src/app/shared/Giocatore';
 import { Partita, Player } from 'src/app/shared/Partita';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
     selector: 'app-partita-modal',
@@ -41,7 +42,8 @@ export class PartitaModalPage implements OnInit {
         const partita: Partita = {
             giocatori: players,
             start_date: new Date(),
-            status: 1
+            status: 1,
+            id: uuidv4()
         };
 
         this.partitaService.createPartita(partita);

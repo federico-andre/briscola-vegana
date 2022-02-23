@@ -18,8 +18,9 @@ export class PartitaEditPage implements OnInit {
         this.route.params.subscribe(params => {
             // console.log(params);
             const id = params['id'];
-            // console.log(id);
-            this.partitaService.getPartitaById(id).subscribe(res => this.partita = res[0]);
+            console.log(id);
+            this.partitaService.getPartitaById(id).subscribe(res => {console.log(res) 
+                this.partita = res[0]});
         });
     }
 
