@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Partita } from '../shared/Partita';
+import { Partita } from '../../model/Partita';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,11 @@ export class PartitaService {
 
   getStoricoPartite() {
     const partitaCollection = this.afs.collection<Partita>('partita', ref => ref.where('status', '==', 0));
+    return partitaCollection.valueChanges({ idField: 'idField' });
+  }
+
+  getAll() {
+    const partitaCollection = this.afs.collection<Partita>('partita');
     return partitaCollection.valueChanges({ idField: 'idField' });
   }
 

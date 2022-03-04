@@ -3,8 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { GiocatoriService } from 'src/app/services/giocatori.service';
 import { BaseController } from 'src/app/shared/BaseController';
-import { Giocatore } from 'src/app/shared/Giocatore';
-import { GiocatoreModalPage } from '../giocatore-modal/giocatore-modal.page';
+import { Giocatore } from 'src/model/Giocatore';
+import { GiocatoreModalPage } from './giocatore-modal/giocatore-modal.page';
 
 @Component({
   selector: 'app-giocatori',
@@ -15,7 +15,8 @@ export class GiocatoriPage extends BaseController implements OnInit {
 
   slideOpts = {
     initialSlide: 0,
-    speed: 400
+    speed: 400,
+    autoHeight: true
   };
 
   giocatori: Giocatore[] = [];

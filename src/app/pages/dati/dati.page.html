@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button type="button" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Dati
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-segment (ionChange)="segmentChanged($event)" value="statistiche" scrollable="true">
+    <ion-segment-button value="statistiche">
+      <ion-label>Statistiche</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="storico">
+      <ion-label>Storico</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+    <div *ngSwitchCase="'statistiche'">
+      <app-statistiche></app-statistiche>
+    </div>
+
+    <div *ngSwitchCase="'storico'">
+      <app-storico></app-storico>
+    </div>
+
+  </div>
+
+</ion-content>

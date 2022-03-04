@@ -12,43 +12,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <!-- <section style="max-width: fit-content;">
-    <h3>Partita in corso</h3>
-    <span *ngIf="!partita">Non ci sono partite in corso</span>
-    <ion-card *ngIf="partita">
-      <ion-item>
-        <ion-label>Partita del: {{partita.start_date}}</ion-label>
-      </ion-item>
-    
-      <ion-card-content>
-        <table>
-          <thead>
-            <th>Giocatore</th>
-            <th>Punti</th>
-          </thead>
-          <tbody *ngFor="let giocatore of partita.giocatori">
-            <td>{{giocatore.id}}</td>
-            <td style="text-align: right;">
-              <ion-badge color="secondary">{{giocatore.points}}</ion-badge>
-            </td>
-          </tbody>
-        </table>
-      </ion-card-content>
-
-      <ion-footer class="ion-no-border">
-        <ion-toolbar>
-          <ion-icon name="close-circle" slot="start"></ion-icon>
-          <ion-button fill="outline" slot="end">Dettaglio</ion-button>
-        </ion-toolbar>
-      </ion-footer>
-
-    </ion-card>
-  </section> -->
   <h3>Partita in corso</h3>
   <span *ngIf="!partita">Non ci sono partite in corso</span>
-  <ion-list *ngIf="partita">
-    <span>Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</span>
+  <ion-list *ngIf="partita" lines="inset">
+    <!-- <span>Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</span> -->
+
+    <ion-list-header>
+      <!-- <ion-label>Recent</ion-label> -->
+      <!-- <ion-button>Clear</ion-button> -->
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-align-self-center" style="text-align: center;">
+            <ion-label>
+              <h2>Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</h2>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-align-self-start">
+            <p>Gioco: <b>{{partita.gameMode.description}}</b></p>
+          </ion-col>
+          <ion-col style="text-align: right;">
+            <p *ngIf="partita.gameMode.point_selection">Punti: {{partita.possible_points}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-list-header>
+
     <ion-item *ngFor="let giocatore of partita.giocatori | orderBy:'desc':'points'">
       <ion-avatar slot="start">
         <img src="{{giocatore.imageUrl}}" />
@@ -59,6 +50,7 @@
       </ion-label>
       <ion-badge slot="end" [color]="getPointsColor(giocatore.points)">{{giocatore.points}}</ion-badge>
     </ion-item>
+
     <ion-footer class="ion-no-border">
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -78,8 +70,6 @@
       </ion-toolbar>
     </ion-footer>
   </ion-list>
-
-
 
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button color="primary" (click)="creaNuovaPartita()" [disabled]="createNewGame">

@@ -21,9 +21,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'giocatore-modal',
-    loadChildren: () => import('./pages/giocatore-modal/giocatore-modal.module').then( m => m.GiocatoreModalPageModule)
+    loadChildren: () => import('./pages/giocatori/giocatore-modal/giocatore-modal.module').then( m => m.GiocatoreModalPageModule)
   }
 
 ];

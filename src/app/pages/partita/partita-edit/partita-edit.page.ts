@@ -1,20 +1,27 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Chart, registerables } from 'chart.js';
 import { AuthService } from 'src/app/services/auth.service';
 import { PartitaService } from 'src/app/services/partita.service';
 import { BaseController } from 'src/app/shared/BaseController';
-import { Partita, Player, Turno } from 'src/app/shared/Partita';
+import { Partita } from 'src/model/Partita';
+import { Player } from 'src/model/Player';
+import { Turno } from 'src/model/Turno';
 
 @Component({
     selector: 'app-partita-edit',
     templateUrl: 'partita-edit.page.html',
     styleUrls: ['partita-edit.page.scss']
 })
-export class PartitaEditPage extends BaseController implements OnInit {
+export class PartitaEditPage extends BaseController implements OnInit, AfterViewInit {
+
+    @ViewChild('lineCanvas') private lineCanvas: ElementRef;
 
     partita: Partita = null;
     selectedTurno: Turno = null;
+
+    lineChart: any;
 
     constructor(authService: AuthService, private route: ActivatedRoute,
         private partitaService: PartitaService,
@@ -23,7 +30,12 @@ export class PartitaEditPage extends BaseController implements OnInit {
         super(authService);
     }
 
+    ngAfterViewInit(): void {
+        this.lineChartMethod();
+    }
+
     ngOnInit(): void {
+        Chart.register(...registerables);
         this.route.params.subscribe(params => {
             // console.log(params);
             const id = params['id'];
@@ -36,20 +48,40 @@ export class PartitaEditPage extends BaseController implements OnInit {
     }
 
     async points(op: string, player: Player) {
-        if (op == "add") player.points += 10;
-        if (op == "rm") player.points -= 10;
+
+        const mode = this.partita.gameMode;
+
+        if (op == "add") {
+            if(mode.point_selection && player.points == this.partita.possible_points) {
+                this.createAlert('OCHO!', 'Massimo dei punti raggiunto!');
+            } else {
+                player.points += mode.pointValue;
+            }
+        };
+
+        if (op == "rm") {
+            if(mode.point_selection && player.points == 0) {
+                this.createAlert('OCHO!', "Il giocatore ha già perso! UahUahUahUah (com'è che fate voi?!). Occhio che potreste non dovergli parlare più ;)");
+            } else {
+                player.points -= mode.pointValue;
+            }
+        };
 
         if (player.points == 90) {
-            const alert = await this.alertController.create({
-                cssClass: 'my-custom-class',
-                header: 'LA MAMMA!!',
-                message: 'La mamma, la zia, la nonna, la sorella, la cugina ... e la nonna cagona',
-                buttons: ['OK']
-            });
-
-            await alert.present();
+            this.createAlert('LA MAMMA!!', 'La mamma, la zia, la nonna, la sorella, la cugina ... e la nonna cagona');
         }
 
+    }
+
+    async createAlert(header: string, message: string) {
+        const alert = await this.alertController.create({
+            cssClass: '',
+            header: header,
+            message: message,
+            buttons: ['OK']
+        });
+
+        await alert.present();
     }
 
     async updareResultsAndGoBack() {
@@ -77,6 +109,32 @@ export class PartitaEditPage extends BaseController implements OnInit {
         const turno = event.detail.value;
         this.selectedTurno = this.partita.turni[turno];
     }
+
+    lineChartMethod() {
+        this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+          type: 'line',
+          data: {
+              labels: ['fede', 'fab'],
+              datasets: [
+                  {data: [1,2,3,4,5]}
+              ]
+          },
+          options: {
+            scales: {
+              xAxes: 
+                {
+                  type: 'linear',
+                  position: 'bottom',
+                },
+              yAxes: 
+                {
+                  type: 'linear',
+                },
+              
+            }
+          }
+        });
+      }
 
 
 }

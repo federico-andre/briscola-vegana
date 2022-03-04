@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { PartitaService } from 'src/app/services/partita.service';
 import { BaseController } from 'src/app/shared/BaseController';
-import { Partita } from 'src/app/shared/Partita';
+import { Partita } from 'src/model/Partita';
 
 @Component({
   selector: 'app-storico',

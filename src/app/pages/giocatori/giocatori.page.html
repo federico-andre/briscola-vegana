@@ -13,7 +13,7 @@
 
 <ion-content fullscreen>
 
-  <ion-slides pager="true" [options]="slideOpts" mode="ios">
+  <ion-slides pager="true" [options]="slideOpts" mode="ios" >
     <ion-slide *ngFor="let giocatore of giocatori">
       <ion-card>
         <img src="{{giocatore.imageUrl}}" />
@@ -24,19 +24,13 @@
         <ion-card-content>
           {{giocatore.description}}
         </ion-card-content>
-        <ion-footer class="ion-no-border">
+        <!-- <ion-footer class="ion-no-border">
           <ion-toolbar>
             <ion-title>Punti Totali: {{giocatore.totalPoints}}</ion-title>
           </ion-toolbar>
-        </ion-footer>
+        </ion-footer> -->
       </ion-card>
     </ion-slide>
-    <!-- <ion-slide>
-      <h1>Slide 2</h1>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 3</h1>
-    </ion-slide> -->
   </ion-slides>
 
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">

@@ -16,8 +16,8 @@ const routes: Routes = [
         loadChildren: () => import('../giocatori/giocatori.module').then(m => m.GiocatoriPageModule)
       },
       {
-        path: 'storico',
-        loadChildren: () => import('../storico/storico.module').then(m => m.StoricoPageModule)
+        path: 'dati',
+        loadChildren: () => import('../dati/dati.module').then(m => m.DatiPageModule)
       },
       {
         path: '',

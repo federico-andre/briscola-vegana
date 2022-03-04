@@ -1,7 +1,11 @@
 ion-slides {
-    height: 100%;
+    height: fit-content;
 }
 
 ion-card {
-    width: 100%;
+    width: fit-content;
+}
+
+img {
+    max-height: -webkit-fill-available;
 }

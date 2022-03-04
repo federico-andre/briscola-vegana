@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { GiocatoriService } from 'src/app/services/giocatori.service';
-import { Giocatore } from 'src/app/shared/Giocatore';
+import { Giocatore } from 'src/model/Giocatore';
 import { ActionSheetController } from '@ionic/angular';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { AngularFireStorage } from '@angular/fire/compat/storage';

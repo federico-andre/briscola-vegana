@@ -16,11 +16,12 @@
     <section *ngIf="partita">
         <h3 style="text-align: center;">Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</h3>
 
-        <ion-segment (ionChange)="turnoChanged($event)" value="{{selectedTurno.numero}}" scrollable="true" >
-            <ion-segment-button *ngFor="let turno of partita.turni" value="{{turno.numero}}" id="segment-{{turno.numero}}">
-              <ion-label>Turno {{turno.numero + 1}}</ion-label>
+        <ion-segment (ionChange)="turnoChanged($event)" value="{{selectedTurno.numero}}" scrollable="true">
+            <ion-segment-button *ngFor="let turno of partita.turni" value="{{turno.numero}}"
+                id="segment-{{turno.numero}}">
+                <ion-label>Turno {{turno.numero + 1}}</ion-label>
             </ion-segment-button>
-          </ion-segment>
+        </ion-segment>
 
         <ion-list>
             <ion-item *ngFor="let giocatore of selectedTurno.giocatori">
@@ -29,20 +30,41 @@
                 </ion-avatar>
                 <ion-label>
                     <h2>{{giocatore.nickname}}</h2>
-                    <p>{{giocatore.description}}</p> 
+                    <p>{{giocatore.description}}</p>
                 </ion-label>
                 <ion-label class="points">
-                    <ion-button slot="start" color="danger" (click)="points('rm', giocatore)" *ngIf="selectedTurno.numero + 1 == partita.turni.length">
-                        <ion-icon name="remove"></ion-icon>
-                    </ion-button>
-                    <ion-badge  [color]="getPointsColor(giocatore.points)">{{giocatore.points}}</ion-badge>
-                    <ion-button slot="end" color="success" (click)="points('add', giocatore)" *ngIf="selectedTurno.numero + 1 == partita.turni.length">
-                        <ion-icon name="add"></ion-icon>
-                    </ion-button>
+                    <ion-buttons slot="start">
+                        <ion-button color="danger" (click)="points('rm', giocatore)"
+                            *ngIf="selectedTurno.numero + 1 == partita.turni.length">
+                            <ion-icon name="remove"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+
+                    <ion-note [color]="getPointsColor(giocatore.points)">{{giocatore.points}}</ion-note>
+
+                    <ion-buttons slot="end">
+                        <ion-button color="success" (click)="points('add', giocatore)"
+                            *ngIf="selectedTurno.numero + 1 == partita.turni.length">
+                            <ion-icon name="add"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
                 </ion-label>
             </ion-item>
         </ion-list>
 
-        <ion-button shape="block" class="next" (click)="nextTurno()" [disabled]="selectedTurno.numero + 1 != partita.turni.length">Neeext</ion-button>
+        <ion-button shape="block" class="next" (click)="nextTurno()"
+            [disabled]="selectedTurno.numero + 1 != partita.turni.length">Neeext</ion-button>
     </section>
+
+    <!-- statistiche -->
+    <!-- <section>
+        <ion-card>
+            <ion-card-header style="text-align: center;">
+                Andamento Punti giocatori
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #lineCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+            </ion-card-content>
+          </ion-card>
+    </section> -->
 </ion-content>

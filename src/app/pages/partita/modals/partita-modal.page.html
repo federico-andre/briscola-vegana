@@ -8,17 +8,27 @@
 
     <form [formGroup]="nuovaPartitaForm" (ngSubmit)="creaPartita()">
         <div class="input-group">
-                <!-- <ion-item *ngFor="let giocatore of allPlayers">
-                    <ion-label>{{giocatore.nickname}}</ion-label>
-                    <ion-checkbox slot="end" (ionChange)="onSelectionChange($event)"></ion-checkbox>
-                </ion-item> -->
-
-                <ion-item style="margin: 0.5rem 0 0.5rem 0;">
-                    <ion-label>Giocatori</ion-label>
-                    <ion-select  multiple="true"  formControlName="giocatori" name="giocatori">
-                      <ion-select-option *ngFor="let giocatore of allPlayers" [value]="giocatore">{{giocatore.nickname}}</ion-select-option>
-                    </ion-select>
-                  </ion-item>
+            <ion-item style="margin: 0.5rem 0 0.5rem 0;">
+                <ion-label>Giocatori</ion-label>
+                <ion-select multiple="true" formControlName="giocatori" name="giocatori">
+                    <ion-select-option *ngFor="let giocatore of allPlayers" [value]="giocatore">{{giocatore.nickname}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item style="margin: 0.5rem 0 0.5rem 0;">
+                <ion-label>Modalità di Gioco</ion-label>
+                <ion-select multiple="false" formControlName="mode" name="mode">
+                    <ion-select-option *ngFor="let mode of playMode" [value]="mode">{{mode.description}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item style="margin: 0.5rem 0 0.5rem 0;" *ngIf="mode.value.point_selection">
+                <ion-label>Numero di punti</ion-label>
+                <ion-select multiple="false" formControlName="point_number" name="point_number">
+                    <ion-select-option *ngFor="let points of mode.value.possible_points" [value]="points">{{points}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
         </div>
 
         <ion-button type="submit" expand="block" [disabled]="!nuovaPartitaForm.valid">Crea Partita</ion-button>

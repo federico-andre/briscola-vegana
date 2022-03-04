@@ -18,6 +18,7 @@ import { OrderByPipe } from 'src/app/pipes/order-by.pipe';
     RouterModule.forChild([{ path: '', component: StoricoPage }]),
     StoricoPageRoutingModule,
   ],
-  declarations: [StoricoPage, OrderByPipe]
+  declarations: [StoricoPage, OrderByPipe],
+  exports: [StoricoPage]
 })
 export class StoricoPageModule {}

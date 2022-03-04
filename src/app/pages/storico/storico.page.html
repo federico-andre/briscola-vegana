@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button type="button" (click)="logout()">
@@ -9,9 +9,9 @@
       Storico
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
+<!-- <ion-content [fullscreen]="true"> -->
 
   <h3 style="text-align: center;">Storico Partite</h3>
 
@@ -19,7 +19,8 @@
     <ion-accordion *ngFor="let partita of storicoPartite" value="{{partita.idField}}">
 
       <ion-item slot="header">
-        <ion-label>Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</ion-label>
+        <ion-label slot="start">Partita del {{partita.start_date.toMillis() | date:'dd/MM/yyyy'}}</ion-label>
+        <ion-label slot="end">Gioco: {{partita.gameMode.description}}</ion-label>
       </ion-item>
   
       <ion-list slot="content" >
@@ -54,4 +55,4 @@
     </ion-list>
   </section> -->
 
-</ion-content>
+<!-- </ion-content> -->
